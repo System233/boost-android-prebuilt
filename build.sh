@@ -19,9 +19,9 @@ function clone_branch(){
 
 
 
-clone_branch https://github.com/unicode-org/icu.git $ICU_VERSION icu
+# clone_branch https://github.com/unicode-org/icu.git $ICU_VERSION icu
 
-./build-icu.sh icu "$ICU_DIST_DIR"
+# ./build-icu.sh icu "$ICU_DIST_DIR"
 
-# clone_branch https://github.com/boostorg/boost.git $BOOST_VERSION boost
-# ./build-boost.sh boost "$BOOST_DIST_DIR" "$ICU_DIST_DIR"
+clone_branch https://github.com/boostorg/boost.git $BOOST_VERSION boost
+./build-boost.sh boost "$BOOST_DIST_DIR" "$ICU_DIST_DIR"
