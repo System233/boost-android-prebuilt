@@ -11,5 +11,5 @@ source setup-ndk.sh
 cd $SRC_DIR
 mkdir build
 cd build
-cmake .. -DDCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_LATEST_HOME/build/cmake/android.toolchain.cmake
+cmake .. -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_LATEST_HOME/build/cmake/android.toolchain.cmake
 cmake --build . --config Release
