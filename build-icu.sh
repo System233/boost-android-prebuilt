@@ -11,7 +11,7 @@ HOST=aarch64-linux-android32
 JOBS=$(nproc)
 
 
-CXXFLAGS =  -std=c++11
+CXXFLAGS=-std=c++11
 cd $ICU_SRC_DIR
 ndk-build
 
