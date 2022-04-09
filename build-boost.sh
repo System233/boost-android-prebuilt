@@ -10,5 +10,6 @@ DIST_DIR=$2
 source setup-ndk.sh
 cd $SRC_DIR
 mkdir build
+cd build
 cmake .. -DDCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_LATEST_HOME/build/cmake/android.toolchain.cmake -DBOOST_CONTEXT_ARCHITECTURE=arm64
 cmake --build . --config Release
