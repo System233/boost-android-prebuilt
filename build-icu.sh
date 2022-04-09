@@ -23,5 +23,5 @@ source ./setup-ndk.sh
 cd ..
 mkdir target
 cd target
-../configure --host=$TARGET --with-cross-build=../build
+../configure --host=$TARGET --with-cross-build=$(pwd)/../build
 make -j$JOBS
