@@ -42,6 +42,7 @@ log "HOST_ARCH=$HOST_ARCH"
 HOST_TAG=$HOST_OS-$HOST_ARCH
 
 export PATH=$PATH:$ANDROID_NDK_LATEST_HOME/toolchains/llvm/prebuilt/$HOST_TAG/bin
+export PATH=$PATH:$ANDROID_NDK_LATEST_HOME/build
 
 clone_branch https://github.com/unicode-org/icu.git $ICU_VERSION icu
 

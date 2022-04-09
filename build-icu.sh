@@ -8,16 +8,19 @@
 ICU_SRC_DIR=$1/icu4c/source
 ICU_DIST_DIR=$2
 HOST=aarch64-linux-android32
+JOBS=$(nproc)
 
 
-
+CXXFLAGS =  -std=c++11
 cd $ICU_SRC_DIR
-mkdir build
-cd build
-../runConfigureICU Linux
-make
-cd ..
-mkdir target
-cd target
-../configure --host=$HOST --with-cross-build=../build
-make
+ndk-build
+
+# mkdir build
+# cd build
+# ../runConfigureICU Linux
+# make -j$JOBS
+# cd ..
+# mkdir target
+# cd target
+# ../configure --host=$HOST --with-cross-build=../build
+# make -j$JOBS
