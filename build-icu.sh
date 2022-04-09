@@ -18,7 +18,7 @@ cd build
 ../runConfigureICU Linux
 make -j$JOBS
 cd ..
-source ./setup-ndk.sh
+source $ROOT_DIR/setup-ndk.sh
 mkdir target
 cd target
 ../configure --host=$TARGET --with-cross-build=$(pwd)/../build
