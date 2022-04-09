@@ -7,6 +7,9 @@
 
 ICU_SRC_DIR=$1/icu4c/source
 ICU_DIST_DIR=$2
+HOST=aarch64-linux-android32
+
+
 
 cd $ICU_SRC_DIR
 mkdir build
@@ -16,4 +19,5 @@ make
 cd ..
 mkdir target
 cd target
-../configure --host=arm --with-cross-build=../build
+../configure --host=$HOST --with-cross-build=../build
+make

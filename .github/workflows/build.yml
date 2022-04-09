@@ -6,6 +6,8 @@ name: Build
 
 on:
   workflow_dispatch:
+  push:
+    
     
 jobs:
   build:
