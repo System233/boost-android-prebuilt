@@ -9,7 +9,6 @@ BOOST_VERSION=$(git ls-remote --tags --sort=-v:refname https://github.com/boosto
 JOBS=$(nproc)
 ICU_DIST_DIR=$(pwd)/icu-dist
 BOOST_DIST_DIR=$(pwd)/boost-dist
-ROOT_DIR=$(pwd)
 function clone_branch(){
     # clone_branch repo branch
     REPO=$1

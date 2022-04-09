@@ -8,6 +8,7 @@
 ICU_SRC_DIR=$1/icu4c/source
 ICU_DIST_DIR=$2
 JOBS=$(nproc)
+ROOT_DIR=$(pwd)
 
 
 CXXFLAGS=-std=c++11
