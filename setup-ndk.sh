@@ -28,12 +28,12 @@ esac
 echo "HOST_ARCH=$HOST_ARCH"
 
 HOST_TAG=$HOST_OS-$HOST_ARCH
-export TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/$HOST_ARCH
+export TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/$HOST_TAG
 # Only choose one of these, depending on your device...
 export TARGET=aarch64-linux-android
-export TARGET=armv7a-linux-androideabi
-export TARGET=i686-linux-android
-export TARGET=x86_64-linux-android
+# export TARGET=armv7a-linux-androideabi
+# export TARGET=i686-linux-android
+# export TARGET=x86_64-linux-android
 # Set this to your minSdkVersion.
 export API=21
 # Configure and build.
