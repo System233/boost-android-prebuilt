@@ -27,7 +27,7 @@ case $HOST_OS in
   *) echo "ERROR: Unknown host operating system: $HOST_OS"
      exit 1
 esac
-log "HOST_OS=$HOST_OS"
+echo "HOST_OS=$HOST_OS"
 
 HOST_ARCH=$(uname -m)
 case $HOST_ARCH in
@@ -37,18 +37,20 @@ case $HOST_ARCH in
     *) echo "ERROR: Unknown host CPU architecture: $HOST_ARCH"
        exit 1
 esac
-log "HOST_ARCH=$HOST_ARCH"
+echo "HOST_ARCH=$HOST_ARCH"
 
 HOST_TAG=$HOST_OS-$HOST_ARCH
 
 export PATH=$PATH:$ANDROID_NDK_LATEST_HOME/toolchains/llvm/prebuilt/$HOST_TAG/bin
 echo $ANDROID_NDK_LATEST_HOME/toolchains/llvm/prebuilt/$HOST_TAG/bin
+echo ANDROID_NDK_LATEST_HOME=$ANDROID_NDK_LATEST_HOME
 aarch64-linux-android
+ls $ANDROID_NDK_LATEST_HOME/toolchains/llvm/prebuilt/$HOST_TAG/bin
 # export PATH=$PATH:$ANDROID_NDK_LATEST_HOME/build
 
-clone_branch https://github.com/unicode-org/icu.git $ICU_VERSION icu
+# clone_branch https://github.com/unicode-org/icu.git $ICU_VERSION icu
 
-./build-icu.sh icu "$ICU_DIST_DIR"
+# ./build-icu.sh icu "$ICU_DIST_DIR"
 
 # clone_branch https://github.com/boostorg/boost.git $BOOST_VERSION boost
 # ./build-boost.sh boost "$BOOST_DIST_DIR" "$ICU_DIST_DIR"
