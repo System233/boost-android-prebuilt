@@ -5,7 +5,6 @@
 
 # build-boost BUILD_SRC_DIR BUILD_DIST_DIR
 
-BASE_DIR=$(dirname "$0")
 BUILD_SRC_DIR=$1
 BUILD_DIST_DIR=$2
 

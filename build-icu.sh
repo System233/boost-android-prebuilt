@@ -7,7 +7,7 @@
 BUILD_SRC_DIR=$1
 BUILD_DIST_DIR=$2
 
-BASE_DIR=$(dirname "$0")
+BASE_DIR=$(pwd)
 ICU4C_SRC_DIR=$BUILD_SRC_DIR/icu4c/source
 JOBS=$(nproc)
 
