@@ -31,10 +31,11 @@ function clone_branch(){
     git clone --jobs $JOBS --recursive --depth 1 --single-branch --branch $BRANCH $REPO $INTO 
 }
 
+echo Building icu library
 clone_branch https://github.com/unicode-org/icu.git $ICU_VERSION icu
-
 ./build-icu.sh icu $BUILD_DIST_DIR
 
+echo Building boost library
 clone_branch https://github.com/boostorg/boost.git $BOOST_VERSION boost
 ./build-boost.sh boost $BUILD_DIST_DIR
 

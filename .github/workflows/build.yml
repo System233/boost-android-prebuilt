@@ -27,11 +27,15 @@ jobs:
           ICU_VERSION=$(./latest-icu-version.sh)
           ICU_NAME=$(echo icu$ICU_VERSION|grep --perl-regex -e "release-\\K(.*)"  --only-matching|sed -e "s/-/./g")
           BOOST_DIST_NAME=$BOOST_VERSION-$ICU_NAME-android$ANDROID_PLATFORM-$ANDROID_ABI.zip
-          ./build.sh ${{matrix.android_abi}} ${{matrix.android_platform}}
-          cd dist
-          zip -9 -r . ../$BOOST_DIST_NAME
+          
           echo "::set-output name=name::$BOOST_VERSION"
           echo "::set-output name=zip::$BOOST_DIST_NAME"
+
+          ./build.sh $ANDROID_ABI $ANDROID_PLATFORM
+      - name: Archive
+        run: |
+          cd dist
+          zip -9 ../${{steps.outputs.zip}} -r . 
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
