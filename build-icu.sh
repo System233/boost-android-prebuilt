@@ -12,13 +12,16 @@ ICU4C_SRC_DIR=$BUILD_SRC_DIR/icu4c/source
 JOBS=$(nproc)
 
 cd $ICU4C_SRC_DIR
+
+
 mkdir build
 cd build
 ../configure
 make -j$JOBS
 
+cd ..
+
 source $BASE_DIR/setup-ndk.sh
-cd $ICU4C_SRC_DIR
 mkdir target
 cd target
 ../configure --host=$TARGET_HOST --with-cross-build=$ICU4C_SRC_DIR/build
