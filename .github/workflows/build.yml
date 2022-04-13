@@ -36,13 +36,13 @@ jobs:
           # ./build.sh $ANDROID_ABI $ANDROID_PLATFORM $BOOST_VERSION $ICU_VERSION
       - name: Archive
         run: |
+          echo Test ${{steps.build.outputs.name}} ${{steps.build.outputs.zip}}
           cd dist
-          zip -9 ../${{steps.outputs.zip}} -r . 
-          echo Test ${{steps.outputs.name}} ${{steps.outputs.zip}}
+          zip -9 ../${{steps.build.outputs.zip}} -r . 
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          name: ${{steps.outputs.name}}
-          tag_name: ${{steps.outputs.name}}
+          name: ${{steps.build.outputs.name}}
+          tag_name: ${{steps.build.outputs.name}}
           files: |
-            ${{steps.outputs.zip}}
+            ${{steps.build.outputs.zip}}
