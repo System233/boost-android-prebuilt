@@ -15,8 +15,10 @@ cd build
 cmake .. -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_LATEST_HOME/build/cmake/android.toolchain.cmake \
         -DANDROID_ABI=$ANDROID_ABI \
         -DANDROID_PLATFORM=$ANDROID_PLATFORM \
-        -DBOOST_LOCALE_ENABLE_POSIX=on \
+        -DBOOST_LOCALE_ENABLE_POSIX=off \
+        -DBOOST_LOCALE_ENABLE_ICONV=off \
         -DBOOST_LOCALE_ENABLE_STD=on \
+        -DBOOST_LOCALE_ENABLE_ICU=on \
         -DICU_INCLUDE_DIR=$BUILD_DIST_DIR/include \
         -DICU_UC_LIBRARY_RELEASE=$BUILD_DIST_DIR/lib/libicuuc.so \
         -DICU_I18N_LIBRARY_RELEASE=$BUILD_DIST_DIR/lib/libicui18n.so \
