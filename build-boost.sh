@@ -10,7 +10,6 @@ BUILD_SRC_DIR=$1
 BUILD_DIST_DIR=$2
 
 
-source setup-ndk.sh
 cd $BUILD_SRC_DIR
 mkdir build
 cd build
