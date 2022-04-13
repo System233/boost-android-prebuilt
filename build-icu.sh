@@ -18,12 +18,13 @@ mkdir build
 cd build
 ../configure
 make -j$JOBS
-
+CROSS_BUILD_DIR=$(pwd)
+echo CROSS_BUILD_DIR=$CROSS_BUILD_DIR
 cd ..
 
 source $BASE_DIR/setup-ndk.sh
 mkdir target
 cd target
-../configure --host=$TARGET_HOST --with-cross-build=$(readlink -f $ICU4C_SRC_DIR/build)
+../configure --host=$TARGET_HOST --with-cross-build=$CROSS_BUILD_DIR
 make -j$JOBS
 make install prefix=$BUILD_DIST_DIR

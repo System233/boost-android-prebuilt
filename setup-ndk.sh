@@ -25,7 +25,7 @@ case $HOST_OS in
   *) echo "ERROR: Unknown host operating system: $HOST_OS"
      exit 1
 esac
-echo "HOST_OS=$HOST_OS"
+# echo "HOST_OS=$HOST_OS"
 
 HOST_ARCH=$(uname -m)
 case $HOST_ARCH in
@@ -35,7 +35,7 @@ case $HOST_ARCH in
     *) echo "ERROR: Unknown host CPU architecture: $HOST_ARCH"
        exit 1
 esac
-echo "HOST_ARCH=$HOST_ARCH"
+# echo "HOST_ARCH=$HOST_ARCH"
 
 HOST_TAG=$HOST_OS-$HOST_ARCH
 export TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/$HOST_TAG
