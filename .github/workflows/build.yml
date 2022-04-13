@@ -33,11 +33,12 @@ jobs:
           echo "::set-output name=name::$BOOST_VERSION"
           echo "::set-output name=zip::$BOOST_DIST_NAME"
           echo $BOOST_VERSION $ICU_VERSION
-          ./build.sh $ANDROID_ABI $ANDROID_PLATFORM $BOOST_VERSION $ICU_VERSION
+          # ./build.sh $ANDROID_ABI $ANDROID_PLATFORM $BOOST_VERSION $ICU_VERSION
       - name: Archive
         run: |
           cd dist
           zip -9 ../${{steps.outputs.zip}} -r . 
+          echo Test ${{steps.outputs.name}} ${{steps.outputs.zip}}
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
