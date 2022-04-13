@@ -25,7 +25,7 @@ jobs:
           ANDROID_PLATFORM=${{matrix.android_platform}}
           BOOST_VERSION=$(./latest-boost-version.sh)
           ICU_VERSION=$(./latest-icu-version.sh)
-          ICU_NAME=$(echo icu$ICU_VERSION|grep --perl-regex -e "release-\\K(.*)"  --only-matching|sed -e "s/-/.")
+          ICU_NAME=$(echo icu$ICU_VERSION|grep --perl-regex -e "release-\\K(.*)"  --only-matching|sed -e "s/-/./g")
           BOOST_DIST_NAME=$BOOST_VERSION-$ICU_NAME-android$ANDROID_PLATFORM-$ANDROID_ABI.zip
           ./build.sh ${{matrix.android_abi}} ${{matrix.android_platform}}
           cd dist
