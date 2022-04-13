@@ -3,24 +3,26 @@
 # This software is released under the MIT License.
 # https://opensource.org/licenses/MIT
 
-# build-icu SRC_DIR DIST_DIR
+# build-icu BUILD_SRC_DIR BUILD_DIST_DIR
+BUILD_SRC_DIR=$1
+BUILD_DIST_DIR=$2
 
-ICU_SRC_DIR=$1/icu4c/source
-ICU_DIST_DIR=$2
+BASE_DIR=$(dirname "$0")
+ICU4C_SRC_DIR=$BUILD_SRC_DIR/icu4c/source
 JOBS=$(nproc)
-ROOT_DIR=$(pwd)
 
 
 CXXFLAGS=-std=c++11
-cd $ICU_SRC_DIR
+cd $ICU4C_SRC_DIR
 
 mkdir build
 cd build
-../runConfigureICU Linux
+../configure
 make -j$JOBS
 cd ..
-source $ROOT_DIR/setup-ndk.sh
+source $BASE_DIR/setup-ndk.sh
 mkdir target
 cd target
-../configure --host=$TARGET --with-cross-build=$(pwd)/../build
+../configure --host=$TARGET_HOST --with-cross-build=$(pwd)/../build
 make -j$JOBS
+make install prefix=$BUILD_DIST_DIR

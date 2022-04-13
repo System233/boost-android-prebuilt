@@ -8,11 +8,34 @@ on:
   workflow_dispatch:
   push:
     
-    
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        android_abi: [armeabi-v7a,arm64-v8a,x86,x86_64]
+        android_platform: [28]
+        # type: [shared,static]
     steps:
       - uses: actions/checkout@v3
       - name: Build
-        run: ./build.sh
+        id: build
+        run: |
+          ANDROID_ABI=${{matrix.android_abi}}
+          ANDROID_PLATFORM=${{matrix.android_platform}}
+          BOOST_VERSION=$(./latest-boost-version.sh)
+          ICU_VERSION=$(./latest-icu-version.sh)
+          ICU_NAME=$(echo icu$ICU_VERSION|grep --perl-regex -e "release-\\K(.*)"  --only-matching|sed -e "s/-/.")
+          BOOST_DIST_NAME=$BOOST_VERSION-$ICU_NAME-android$ANDROID_PLATFORM-$ANDROID_ABI.zip
+          ./build.sh ${{matrix.android_abi}} ${{matrix.android_platform}}
+          cd dist
+          zip -9 -r . ../$BOOST_DIST_NAME
+          echo "::set-output name=name::$BOOST_VERSION"
+          echo "::set-output name=zip::$BOOST_DIST_NAME"
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{steps.outputs.name}}
+          tag_name: ${{steps.outputs.name}}
+          files: |
+            ${{steps.outputs.zip}}

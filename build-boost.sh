@@ -3,13 +3,25 @@
 # This software is released under the MIT License.
 # https://opensource.org/licenses/MIT
 
-# build-boost SRC_DIR DIST_DIR ICU_DIST_DIR
-ROOT_DIR=$(pwd)
-SRC_DIR=$1
-DIST_DIR=$2
+# build-boost BUILD_SRC_DIR BUILD_DIST_DIR
+
+BASE_DIR=$(dirname "$0")
+BUILD_SRC_DIR=$1
+BUILD_DIST_DIR=$2
+
+
 source setup-ndk.sh
-cd $SRC_DIR
+cd $BUILD_SRC_DIR
 mkdir build
 cd build
-cmake .. -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_LATEST_HOME/build/cmake/android.toolchain.cmake -DBOOST_LOCALE_ENABLE_POSIX=on
+cmake .. -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_LATEST_HOME/build/cmake/android.toolchain.cmake \
+        -DANDROID_ABI=$ANDROID_ABI \
+        -DANDROID_PLATFORM=$ANDROID_PLATFORM \
+        -DBOOST_LOCALE_ENABLE_POSIX=on \
+        -DBOOST_LOCALE_ENABLE_STD=on \
+        -DICU_INCLUDE_DIR=$BUILD_DIST_DIR/include \
+        -DICU_UC_LIBRARY_RELEASE=$BUILD_DIST_DIR/lib/libicuuc.so \
+        -DICU_I18N_LIBRARY_RELEASE=$BUILD_DIST_DIR/lib/libicui18n.so \
+        -DICU_DATA_LIBRARY_RELEASE=$BUILD_DIST_DIR/lib/libicudata.so
 cmake --build . --config Release
+cmake --install . --prefix=$BUILD_DIST_DIR
