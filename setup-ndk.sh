@@ -5,7 +5,7 @@
 # setup-ndk 
 
 
-NDK=${ANDROID_NDK_HOME:-$ANDROID_NDK_LATEST_HOME}
+NDK=${ANDROID_NDK_LATEST_HOME:-$ANDROID_NDK_HOME}
 
 case $ANDROID_ABI in
    armeabi-v7a) TARGET_HOST=armv7a-linux-androideabi;;
