@@ -1,0 +1,45 @@
+# Copyright (c) 2022 github.com/System233
+# 
+# This software is released under the MIT License.
+# https://opensource.org/licenses/MIT
+name: Build Selected Version
+
+on:
+  workflow_dispatch:
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        android_abi: [armeabi-v7a,arm64-v8a,x86,x86_64]
+        android_platform: [31]
+        boost_version: [79,78,77,76,75,74,73,72,71,70,69,68,67,66,65.1,65,64,63,62,61,60]
+        # type: [shared,static]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build
+        id: build
+        run: |
+          ANDROID_ABI=${{matrix.android_abi}}
+          ANDROID_PLATFORM=${{matrix.android_platform}}
+          BOOST_VERSION=$(printf "boost-1.%.1f" ${{matrix.boost_version}})
+          ICU_VERSION=$(./latest-icu-version.sh)
+          ICU_NAME=$(echo $ICU_VERSION|grep --perl-regex -e "release-\\K(.*)"  --only-matching|sed -e "s/-/./g")
+          BOOST_DIST_NAME=$BOOST_VERSION-icu$ICU_NAME-android$ANDROID_PLATFORM-$ANDROID_ABI.zip
+          
+          echo "::set-output name=name::$BOOST_VERSION"
+          echo "::set-output name=zip::$BOOST_DIST_NAME"
+          echo $BOOST_VERSION $ICU_VERSION
+          ./build.sh $ANDROID_ABI $ANDROID_PLATFORM $BOOST_VERSION $ICU_VERSION
+      - name: Archive
+        run: |
+          cd dist
+          zip -9 ../${{steps.build.outputs.zip}} -r . 
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{steps.build.outputs.name}}
+          tag_name: ${{steps.build.outputs.name}}
+          files: |
+            ${{steps.build.outputs.zip}}
