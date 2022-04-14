@@ -14,7 +14,7 @@ jobs:
       matrix:
         android_abi: [armeabi-v7a,arm64-v8a,x86,x86_64]
         android_platform: [31]
-        boost_version: [79,78,77,76,75,74,73,72,71,70,69,68,67,66,65.1,65,64,63,62,61,60]
+        boost_version: [79,78,77,76,75,74,73]
         # type: [shared,static]
     steps:
       - uses: actions/checkout@v3
