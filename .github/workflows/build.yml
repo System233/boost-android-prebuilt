@@ -32,18 +32,22 @@ jobs:
           ICU_NAME=$(echo $ICU_VERSION|grep --perl-regex -e "release-\\K(.*)"  --only-matching|sed -e "s/-/./g")
           BOOST_DIST_NAME=$BOOST_VERSION-icu$ICU_NAME-android$ANDROID_PLATFORM-$ANDROID_ABI-$BUILD_TYPE.zip
           
-          echo "{name}={$BOOST_VERSION}" >> $GITHUB_OUTPUT
-          echo "{zip}={$BOOST_DIST_NAME}" >> $GITHUB_OUTPUT
-          echo $BOOST_VERSION $ICU_VERSION
+          echo "TAG_NAME=$BOOST_VERSION" >> $GITHUB_OUTPUT
+          echo "DIST_NAME=$BOOST_DIST_NAME" >> $GITHUB_OUTPUT
+          echo $BOOST_VERSION-$ICU_VERSION-$BUILD_TYPE
+
+          echo BOOST_VERSION=$BOOST_VERSION
+          echo ICU_VERSION=$ICU_NAME/$ICU_VERSION
+          echo BUILD_OUTPUT=$BOOST_DIST_NAME
+
           ./build.sh $ANDROID_ABI $ANDROID_PLATFORM $BOOST_VERSION $ICU_VERSION $BUILD_TYPE
       - name: Archive
         run: |
           cd dist
-          zip -9 ../${{steps.build.outputs.zip}} -r . 
+          zip -9 ../${{steps.build.outputs.DIST_NAME}} -r . 
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          name: ${{steps.build.outputs.name}}
-          tag_name: ${{steps.build.outputs.name}}
+          tag_name: ${{steps.build.outputs.TAG_NAME}}
           files: |
-            ${{steps.build.outputs.zip}}
+            ${{steps.build.outputs.DIST_NAME}}
