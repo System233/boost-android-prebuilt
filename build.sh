@@ -9,6 +9,7 @@ export ANDROID_ABI=$1
 export ANDROID_PLATFORM=$2
 BOOST_VERSION=$3
 ICU_VERSION=$4
+export BUILD_TYPE=$5
 
 BOOST_VERSION=${BOOST_VERSION:-$(./latest-boost-version.sh)}
 ICU_VERSION=${ICU_VERSION:-$(./latest-icu-version.sh)}
