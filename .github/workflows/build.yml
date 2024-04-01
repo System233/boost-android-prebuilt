@@ -6,7 +6,7 @@ name: Build
 
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 0 */3 * *'
   workflow_dispatch:
   push:
     
@@ -34,7 +34,7 @@ jobs:
           ANDROID_ABI_NO_HYPHEN=$(echo $ANDROID_ABI | sed 's/-//g')
           BOOST_DIST_NAME=$BOOST_VERSION-icu$ICU_NAME-android$ANDROID_PLATFORM-$ANDROID_ABI_NO_HYPHEN-$BUILD_TYPE
           
-          echo "TAG_NAME=$BOOST_VERSION" >> $GITHUB_OUTPUT
+          echo "TAG_NAME=$BOOST_VERSION-icu$ICU_NAME" >> $GITHUB_OUTPUT
           echo "DIST_NAME=$BOOST_DIST_NAME" >> $GITHUB_OUTPUT
           echo $BOOST_VERSION-$ICU_VERSION-$BUILD_TYPE
 
