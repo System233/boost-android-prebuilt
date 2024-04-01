@@ -5,7 +5,7 @@
 # setup-ndk 
 
 
-NDK=${ANDROID_NDK_LATEST_HOME:-$ANDROID_NDK_HOME}
+NDK_HOME=${ANDROID_NDK_LATEST_HOME:-$ANDROID_NDK_HOME}
 
 case $ANDROID_ABI in
    armeabi-v7a) TARGET_HOST=armv7a-linux-androideabi;;
@@ -38,7 +38,7 @@ esac
 # echo "HOST_ARCH=$HOST_ARCH"
 
 HOST_TAG=$HOST_OS-$HOST_ARCH
-export TOOLCHAIN=$NDK/toolchains/llvm/prebuilt/$HOST_TAG
+export TOOLCHAIN=$NDK_HOME/toolchains/llvm/prebuilt/$HOST_TAG
 # Only choose one of these, depending on your device...
 # export TARGET_HOST=aarch64-linux-android
 # export TARGET=armv7a-linux-androideabi

@@ -8,11 +8,13 @@
 BUILD_SRC_DIR=$1
 BUILD_DIST_DIR=$2
 
+BASE_DIR=$(pwd)
+source $BASE_DIR/setup-ndk.sh
 
 cd $BUILD_SRC_DIR
 mkdir build
 cd build
-cmake .. -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_LATEST_HOME/build/cmake/android.toolchain.cmake \
+cmake .. -DCMAKE_TOOLCHAIN_FILE=$NDK_HOME/build/cmake/android.toolchain.cmake \
         -DANDROID_ABI=$ANDROID_ABI \
         -DANDROID_PLATFORM=$ANDROID_PLATFORM \
         -DBOOST_LOCALE_ENABLE_POSIX=off \
