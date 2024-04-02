@@ -28,6 +28,7 @@ cmake .. -DCMAKE_TOOLCHAIN_FILE=$NDK_HOME/build/cmake/android.toolchain.cmake \
         -DBOOST_LOCALE_ENABLE_POSIX=off \
         -DBOOST_LOCALE_ENABLE_ICONV=off \
         -DBOOST_LOCALE_ENABLE_STD=off \
-        -DBOOST_LOCALE_ENABLE_ICU=on
+        -DBOOST_LOCALE_ENABLE_ICU=on \
+        -DICU_ROOT=$BUILD_DIST_DIR
 cmake --build . --config Release
 cmake --install . --prefix=$BUILD_DIST_DIR

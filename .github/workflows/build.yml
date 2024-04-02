@@ -27,22 +27,22 @@ jobs:
           ANDROID_ABI=${{matrix.android_abi}}
           ANDROID_PLATFORM=${{matrix.android_platform}}
           BUILD_TYPE=${{matrix.type}}
+
           BOOST_VERSION=$(./latest-boost-version.sh)
+          echo BOOST_VERSION=$BOOST_VERSION
+
           ICU_VERSION=$(./latest-icu-version.sh)
-          ICU_NAME=$(echo $ICU_VERSION|grep --perl-regex -e "release-\\K(.*)"  --only-matching|sed -e "s/-/./g")
+          ICU_NAME=$(echo $ICU_VERSION|grep -oP "release-\\K(.*)"|sed -e "s/-/./g")
+          echo ICU_VERSION=$ICU_NAME/$ICU_VERSION
 
           ANDROID_ABI_NO_HYPHEN=$(echo $ANDROID_ABI | sed 's/-//g')
           BOOST_DIST_NAME=$BOOST_VERSION-icu$ICU_NAME-android$ANDROID_PLATFORM-$ANDROID_ABI_NO_HYPHEN-$BUILD_TYPE
-          
+          echo BUILD_OUTPUT=$BOOST_DIST_NAME
+
           echo "BOOST_VERSION=$BOOST_VERSION" >> $GITHUB_OUTPUT
           echo "ICU_VERSION=$ICU_VERSION" >> $GITHUB_OUTPUT
           echo "TAG_NAME=$BOOST_VERSION-icu$ICU_NAME" >> $GITHUB_OUTPUT
           echo "DIST_NAME=$BOOST_DIST_NAME" >> $GITHUB_OUTPUT
-          echo $BOOST_VERSION-$ICU_VERSION-$BUILD_TYPE
-
-          echo BOOST_VERSION=$BOOST_VERSION
-          echo ICU_VERSION=$ICU_NAME/$ICU_VERSION
-          echo BUILD_OUTPUT=$BOOST_DIST_NAME
 
           ./build.sh $ANDROID_ABI $ANDROID_PLATFORM $BOOST_VERSION $ICU_VERSION $BUILD_TYPE
       - name: Archive
