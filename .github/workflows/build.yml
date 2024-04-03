@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         android_abi: [armeabi-v7a,arm64-v8a,x86,x86_64]
-        android_platform: [20,19]
+        android_platform: [21,20,19]
         type: [shared,static]
       fail-fast: false
     steps:

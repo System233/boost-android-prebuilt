@@ -27,7 +27,6 @@ cd build
 make -j$JOBS
 
 cd ..
-ls /usr/local/lib/android/sdk/ndk/26.2.11394342/toolchains/llvm/prebuilt/linux-x86_64/bin/
 source $BASE_DIR/setup-ndk.sh
 mkdir target
 cd target
