@@ -45,9 +45,12 @@ jobs:
           BOOST_DIST_NAME=$BOOST_VERSION-icu$ICU_NAME-android$ANDROID_PLATFORM-$ANDROID_ABI_NO_HYPHEN-$BUILD_TYPE
           echo BUILD_OUTPUT=$BOOST_DIST_NAME
 
+          TAG_NAME=$BOOST_VERSION-icu$ICU_NAME
+          echo TAG_NAME=$TAG_NAME
+
           echo "BOOST_VERSION=$BOOST_VERSION" >> $GITHUB_OUTPUT
           echo "ICU_VERSION=$ICU_VERSION" >> $GITHUB_OUTPUT
-          echo "TAG_NAME=$BOOST_VERSION-icu$ICU_NAME" >> $GITHUB_OUTPUT
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_OUTPUT
           echo "DIST_NAME=$BOOST_DIST_NAME" >> $GITHUB_OUTPUT
 
           NEED_BUILD=$(curl "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/releases/tags/$TAG_NAME" --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}'|jq -r --arg FILE "$BOOST_DIST_NAME.tar.gz" '.assets | map(.name == $FILE) | any')
