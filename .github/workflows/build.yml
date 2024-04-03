@@ -50,7 +50,7 @@ jobs:
           echo "TAG_NAME=$BOOST_VERSION-icu$ICU_NAME" >> $GITHUB_OUTPUT
           echo "DIST_NAME=$BOOST_DIST_NAME" >> $GITHUB_OUTPUT
 
-          NEED_BUILD=$(curl "https://api.github.com/repos/$GITHUB_REPOSITORY/releases/tags/$TAG_NAME" --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}'|jq -r --arg FILE "$BOOST_DIST_NAME.tar.gz" '.assets | map(.name == $FILE) | any')
+          NEED_BUILD=$(curl "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/releases/tags/$TAG_NAME" --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}'|jq -r --arg FILE "$BOOST_DIST_NAME.tar.gz" '.assets | map(.name == $FILE) | any')
           echo "NEED_BUILD=$NEED_BUILD" >> $GITHUB_OUTPUT
       - name: Build
         if: steps.preflight.outputs.NEED_BUILD == 'true'
