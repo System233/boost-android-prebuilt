@@ -1,3 +1,4 @@
+#!/bin/bash -e
 # Copyright (c) 2022 github.com/System233
 # 
 # This software is released under the MIT License.
@@ -17,8 +18,10 @@ cd build
 
 if [ "$BUILD_TYPE" == "static" ];then
         BUILD_SHARED_LIBS=off
+        LIBRARY_SUFFIX=a
 else
         BUILD_SHARED_LIBS=on
+        LIBRARY_SUFFIX=so
 fi
 
 cmake .. -DCMAKE_TOOLCHAIN_FILE=$NDK_HOME/build/cmake/android.toolchain.cmake \
@@ -27,11 +30,14 @@ cmake .. -DCMAKE_TOOLCHAIN_FILE=$NDK_HOME/build/cmake/android.toolchain.cmake \
         -DBUILD_SHARED_LIBS=$BUILD_SHARED_LIBS \
         -DBOOST_LOCALE_ENABLE_POSIX=off \
         -DBOOST_LOCALE_ENABLE_ICONV=off \
-        -DBOOST_LOCALE_ENABLE_STD=on \
+        -DBOOST_LOCALE_ENABLE_STD=off \
         -DBOOST_LOCALE_ENABLE_ICU=on \
+        -DICU_ROOT=$BUILD_DIST_DIR \
         -DICU_INCLUDE_DIR=$BUILD_DIST_DIR/include \
-        -DICU_UC_LIBRARY_RELEASE=$BUILD_DIST_DIR/lib/libicuuc.so \
-        -DICU_I18N_LIBRARY_RELEASE=$BUILD_DIST_DIR/lib/libicui18n.so \
-        -DICU_DATA_LIBRARY_RELEASE=$BUILD_DIST_DIR/lib/libicudata.so
+        -DICU_MAKEFILE_INC=$BUILD_DIST_DIR/lib/icu/Makefile.inc \
+        -DICU_PKGDATA_INC=$BUILD_DIST_DIR/lib/icu/Makefile.pkgdata \
+        -DICU_UC_LIBRARY_RELEASE=$BUILD_DIST_DIR/lib/libicuuc.$LIBRARY_SUFFIX \
+        -DICU_I18N_LIBRARY_RELEASE=$BUILD_DIST_DIR/lib/libicui18n.$LIBRARY_SUFFIX \
+        -DICU_DATA_LIBRARY_RELEASE=$BUILD_DIST_DIR/lib/libicudata.$LIBRARY_SUFFIX
 cmake --build . --config Release
 cmake --install . --prefix=$BUILD_DIST_DIR
