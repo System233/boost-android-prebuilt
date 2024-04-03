@@ -53,10 +53,10 @@ jobs:
           echo "TAG_NAME=$TAG_NAME" >> $GITHUB_OUTPUT
           echo "DIST_NAME=$BOOST_DIST_NAME" >> $GITHUB_OUTPUT
 
-          NEED_BUILD=$(curl "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/releases/tags/$TAG_NAME" --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' 2>/dev/null|jq -r --arg FILE "$BOOST_DIST_NAME.tar.gz" '.assets | map(.name == $FILE) | any')
-          echo "NEED_BUILD=$NEED_BUILD" >> $GITHUB_OUTPUT
+          BUILD_STATE=$(curl "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/releases/tags/$TAG_NAME" --header 'authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' 2>/dev/null|jq -r --arg FILE "$BOOST_DIST_NAME.tar.gz" '.assets | map(.name == $FILE) | any')
+          echo "BUILD_STATE=$BUILD_STATE" >> $GITHUB_OUTPUT
       - name: Build
-        if: steps.preflight.outputs.NEED_BUILD == 'true'
+        if: steps.preflight.outputs.BUILD_STATE == 'false'
         run: |
           ANDROID_ABI=${{matrix.android_abi}}
           ANDROID_PLATFORM=${{matrix.android_platform}}
@@ -65,7 +65,7 @@ jobs:
           ICU_VERSION=${{steps.preflight.outputs.ICU_VERSION}}
           ./build.sh $ANDROID_ABI $ANDROID_PLATFORM $BOOST_VERSION $ICU_VERSION $BUILD_TYPE
       - name: Archive
-        if: steps.preflight.outputs.NEED_BUILD == 'true'
+        if: steps.preflight.outputs.BUILD_STATE == 'false'
         run: |
           cd dist
           zip -9 ../${{steps.preflight.outputs.DIST_NAME}}.zip -r . 
@@ -75,7 +75,7 @@ jobs:
           sha1sum ${{steps.preflight.outputs.DIST_NAME}}.tar.gz >${{steps.preflight.outputs.DIST_NAME}}.tar.gz.sha1
       - name: Release
         uses: softprops/action-gh-release@v2
-        if: steps.preflight.outputs.NEED_BUILD == 'true' && (github.ref == 'refs/heads/main' || github.event_name != 'push')
+        if: steps.preflight.outputs.BUILD_STATE == 'false' && (github.ref == 'refs/heads/main' || github.event_name != 'push')
         with:
           tag_name: ${{steps.preflight.outputs.TAG_NAME}}
           body: |
