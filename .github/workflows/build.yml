@@ -32,8 +32,9 @@ jobs:
           echo BOOST_VERSION=$BOOST_VERSION
 
           ICU_VERSION=$(./latest-icu-version.sh)
+          echo ICU_VERSION=$ICU_VERSION
           ICU_NAME=$(echo $ICU_VERSION|grep -oP "release-\\K(.*)"|sed -e "s/-/./g")
-          echo ICU_VERSION=$ICU_NAME/$ICU_VERSION
+          echo ICU_NAME=$ICU_NAME
 
           ANDROID_ABI_NO_HYPHEN=$(echo $ANDROID_ABI | sed 's/-//g')
           BOOST_DIST_NAME=$BOOST_VERSION-icu$ICU_NAME-android$ANDROID_PLATFORM-$ANDROID_ABI_NO_HYPHEN-$BUILD_TYPE
