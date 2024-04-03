@@ -31,6 +31,6 @@ cd ..
 source $BASE_DIR/setup-ndk.sh
 mkdir target
 cd target
-../configure --host=$TARGET_HOST --with-cross-build=$ICU4C_SRC_DIR/build $EX_ARGS
+../configure --host=$TARGET_HOST --with-cross-build=$ICU4C_SRC_DIR/build $EX_ARGS||(cat config.log&&false)
 make -j$JOBS
 make install prefix=$BUILD_DIST_DIR
