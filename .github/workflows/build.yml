@@ -19,8 +19,10 @@ jobs:
         android_platform: [21]
         type: [shared,static]
         include:
-          - android_abi: [armeabi-v7a,x86]
-            android_platform: 19
+          - android_platform: 19
+            android_abi: armeabi-v7a
+          - android_platform: 19
+            android_abi: x86
       fail-fast: false
     steps:
       - uses: actions/checkout@v4
