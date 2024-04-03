@@ -25,6 +25,7 @@ else
 fi
 
 cmake .. -DCMAKE_TOOLCHAIN_FILE=$NDK_HOME/build/cmake/android.toolchain.cmake \
+        -DCMAKE_CXX_STANDARD=20 \
         -DANDROID_ABI=$ANDROID_ABI \
         -DANDROID_PLATFORM=$ANDROID_PLATFORM \
         -DBUILD_SHARED_LIBS=$BUILD_SHARED_LIBS \
