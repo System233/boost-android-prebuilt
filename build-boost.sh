@@ -33,7 +33,10 @@ cmake .. -DCMAKE_TOOLCHAIN_FILE=$NDK_HOME/build/cmake/android.toolchain.cmake \
         -DBOOST_LOCALE_ENABLE_STD=off \
         -DBOOST_LOCALE_ENABLE_ICU=on \
         -DICU_DEBUG=on \
-        -DICU_ROOT=$BUILD_DIST_DIR 
-        # -DICU_INCLUDE_DIR=$BUILD_DIST_DIR/include
+        -DICU_ROOT=$BUILD_DIST_DIR \
+        -DICU_INCLUDE_DIR=$BUILD_DIST_DIR/include \
+        -DICU_UC_LIBRARY_RELEASE=$BUILD_DIST_DIR/lib/libicuuc.$LIBRARY_SUFFIX \
+        -DICU_I18N_LIBRARY_RELEASE=$BUILD_DIST_DIR/lib/libicui18n.$LIBRARY_SUFFIX \
+        -DICU_DATA_LIBRARY_RELEASE=$BUILD_DIST_DIR/lib/libicudata.$LIBRARY_SUFFIX
 cmake --build . --config Release
 cmake --install . --prefix=$BUILD_DIST_DIR
