@@ -69,3 +69,6 @@ export CXX=$TOOLCHAIN/bin/$TARGET_HOST$API-clang++
 export LD=$TOOLCHAIN/bin/ld
 export RANLIB=$TOOLCHAIN/bin/llvm-ranlib
 export STRIP=$TOOLCHAIN/bin/llvm-strip
+
+echo List Toolchain
+ls -lh $TOOLCHAIN/bin/

@@ -56,6 +56,7 @@ jobs:
           sha1sum ${{steps.build.outputs.DIST_NAME}}.tar.gz >${{steps.build.outputs.DIST_NAME}}.tar.gz.sha1
       - name: Release
         uses: softprops/action-gh-release@v2
+        if: github.event_name != 'push'
         with:
           tag_name: ${{steps.build.outputs.TAG_NAME}}
           body: |
