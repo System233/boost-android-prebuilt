@@ -11,15 +11,11 @@ NDK_HOME=${ANDROID_NDK_LATEST_HOME:-$ANDROID_NDK_HOME}
 # https://github.com/android/ndk/wiki/Changelog-r26
 # https://developer.android.com/ndk/downloads/revision_history
 # KitKat (APIs 19 and 20) is no longer supported. The minimum OS supported by the NDK is Lollipop (API level 21). See Issue 1751 for details.
-echo ANDROID_PLATFORM=$ANDROID_PLATFORM
-if [ $ANDROID_PLATFORM -lte 20 ];then
+if [ $ANDROID_PLATFORM -le 20 ];then
    #/usr/local/lib/android/sdk/ndk/25.2.9519653
    NDK_HOME=$ANDROID_NDK_HOME
-   echo NDK_HOME=$NDK_HOME
-
    NDK_MAJOR=$(basename "$NDK_HOME"| grep -oE '[0-9]+'|head -n 1)
-   echo NDK_MAJOR=$NDK_MAJOR
-   if [ $NDK_MAJOR -gte 26 ];then
+   if [ $NDK_MAJOR -ge 26 ];then
       echo ERROR!
 
       echo "Error: KitKat (APIs 19 and 20) is no longer supported in NDK r$NDK_MAJOR. The minimum OS supported by the NDK is Lollipop (API level 21)." >2
